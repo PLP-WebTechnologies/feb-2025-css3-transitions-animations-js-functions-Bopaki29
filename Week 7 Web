@@ -1,0 +1,108 @@
+html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CSS + JavaScript Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Welcome to My Animation Page</h1>
+
+  <!-- Theme toggle button -->
+  <button id="toggleBtn">Toggle Theme</button>
+
+  <!-- Box that will animate -->
+  <div id="animatedBox">Click Me!</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+css
+
+/* Basic styling */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 50px;
+  transition: background-color 0.5s ease;
+}
+
+/* Light and dark themes */
+body.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark {
+  background-color: #222222;
+  color: #ffffff;
+}
+
+javascript 
+// Load theme from localStorage on page load
+window.onload = function () {
+  let savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.body.className = savedTheme;
+  } else {
+    document.body.className = 'light'; // default theme
+  }
+};
+
+// Toggle theme and store preference
+document.getElementById('toggleBtn').onclick = function () {
+  let currentTheme = document.body.className;
+  let newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  document.body.className = newTheme;
+
+  // Save the new theme to localStorage
+  localStorage.setItem('theme', newTheme);
+};
+
+// Animate the box when clicked
+document.getElementById('animatedBox').onclick = function () {
+  let box = this;
+
+  // Add animation class
+  box.classList.add('animate');
+
+  // Remove it after 0.5 seconds so it can animate again next time
+  setTimeout(function () {
+    box.classList.remove('animate');
+  }, 500);
+};
+
+/* Button styling */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1); /* Smooth hover effect */
+}
+
+/* Animated box */
+#animatedBox {
+  width: 150px;
+  height: 150px;
+  background-color: teal;
+  margin: 30px auto;
+  line-height: 150px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+/* Animation class */
+.animate {
+  transform: rotate(360deg) scale(1.2);
+  background-color: tomato;
+}
